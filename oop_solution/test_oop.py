@@ -1,24 +1,41 @@
-from library_oop import Book
+from library_oop import Book, Member
 
-print("=== TESTING CLASS: Book ===")
+print("=== TESTING CLASS: Member ===")
 
-b1 = Book(7, "Re:Zero - Starting Life in Another World", "Tappei Nagatsuki", 4)
+m1 = Member(501, "Kurisu Makise", "kurisu@futurelab.jp")
 
-print(f"Title: {b1.name}")
-print(f"Author: {b1.writer}")
-print(f"Total copies: {b1.copies_total}")
-print(f"Available copies: {b1.copies_left}")
+b1 = Book(21, "Steins;Gate: The Committee of 300", "Chiyomaru Shikura", 2)
+b2 = Book(22, "A Certain Magical Index", "Kazuma Kamachi", 1)
 
-print("\n--- Borrowing copies ---")
-b1.borrow_copy()
-b1.borrow_copy()
-print(f"Available copies after 2 borrows: {b1.copies_left}")
+print("\n--- Member info ---")
+print(f"ID: {m1.ident}")
+print(f"Name: {m1.nickname}")
+print(f"Email: {m1.contact}")
+print(f"Borrowed books: {len(m1.items_on_loan)}")
 
-print("\n--- Trying to borrow more than available ---")
-borrow_success = b1.borrow_copy()
-print(f"Borrow success? {borrow_success}")
-print(f"Available copies now: {b1.copies_left}")
+print("\n--- Borrowing books ---")
+m1.borrow_book(b1)
+m1.borrow_book(b2)
 
-print("\n--- Returning a copy ---")
-b1.return_copy()
-print(f"Available copies after return: {b1.copies_left}")
+print(f"Books borrowed by {m1.nickname}:")
+for volume in m1.items_on_loan:
+    print(f"  - {volume.name}")
+
+print("\n--- Trying to borrow more than 3 books ---")
+b3 = Book(23, "Re:Zero Arc 1", "Tappei Nagatsuki", 1)
+b4 = Book(24, "The Melancholy of Haruhi Suzumiya", "Nagaru Tanigawa", 1)
+
+m1.borrow_book(b3)
+m1.borrow_book(b4)
+
+print(f"\nBorrowed books count: {len(m1.items_on_loan)}")
+
+print("\n--- Returning a book ---")
+m1.return_book(b1)
+
+print("Books remaining after return:")
+for volume in m1.items_on_loan:
+    print(f"  - {volume.name}")
+
+print("\n--- Returning a book not borrowed ---")
+m1.return_book(b1)
