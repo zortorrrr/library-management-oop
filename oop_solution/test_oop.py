@@ -1,26 +1,45 @@
-from library_oop import Book
+from library_oop import Book, Member
 
 
-print('\n=== TESTING: Book class ===\n')
-
-book1 = Book(1, 'Python Crash Course', 'Eric Matthes', 3)
+print("### MEMBER CLASS DEMONSTRATION ###\n")
 
 
-print('Title =>', book1.title)
-print('Author =>', book1.author)
-print('Total copies =>', book1.total_copies)
-print('Available =>', book1.available_copies)
+member_a = Member(202, "Brian Torres", "brian.torres@domain.com")
+bk1 = Book(11, "Automate the Boring Stuff", "Al Sweigart", 3)
+bk2 = Book(12, "Fluent Python", "Luciano Ramalho", 2)
 
-print('\n-- Borrowing a few copies --')
-book1.borrow_copy()
-book1.borrow_copy()
-print('Now available:', book1.available_copies)
+print("Member Details")
+print(" ID :", member_a.id)
+print(" Name :", member_a.name)
+print(" Email :", member_a.email)
+print(" Borrowed count =", len(member_a.borrowed_books))
 
-print('\n-- Borrowing again (may fail) --')
-ok = book1.borrow_copy()
-print('Borrow successful?', ok)
-print('Copies left:', book1.available_copies)
 
-print('\n-- Returning one copy --')
-book1.return_copy()
-print('Copies available after return =', book1.available_copies)
+print("\nBorrowing available books ...")
+for b in (bk1, bk2):
+    member_a.borrow_book(b)
+    print(f"✓ Borrowed '{b.title}'")
+
+print("\nCurrently borrowed:")
+for book in member_a.borrowed_books:
+    print("  -", book.title)
+
+
+print("\nTrying to borrow additional titles ...")
+bk3 = Book(13, "Effective Java", "Joshua Bloch", 1)
+bk4 = Book(14, "Clean Architecture", "Robert C. Martin", 1)
+
+for item in (bk3, bk4):
+    member_a.borrow_book(item)
+    print("→ Borrowed:", item.title)
+
+print("\nTotal borrowed so far:", len(member_a.borrowed_books))
+
+print("\nReturning one book ...")
+member_a.return_book(bk1)
+print("After returning, books left:")
+for remain in member_a.borrowed_books:
+    print(f"  * {remain.title}")
+
+print("\nAttempting to return a book already returned ...")
+member_a.return_book(bk1)
