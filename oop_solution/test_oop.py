@@ -17,7 +17,6 @@ library.add_member(302, "Mikasa Ackerman", "mikasa@survey.jp")
 print("\n--- Display Available Books ---")
 library.display_available_books()
 
-
 print("\n--- Borrowing Books ---")
 library.borrow_book(301, 101)
 library.borrow_book(301, 102)
