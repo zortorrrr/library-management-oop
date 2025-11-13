@@ -51,7 +51,7 @@ class Member:
 class Library:
     def __init__(self):
         self.books = []
-        self.members = []
+        self.members = []   
         self.loan_records = [] 
 
     def add_book(self, code, name, writer, copies_total):
