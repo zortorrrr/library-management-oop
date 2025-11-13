@@ -1,41 +1,42 @@
-from library_oop import Book, Member
+from library_oop import Library
 
-print("=== TESTING CLASS: Member ===")
+print("=== TESTING CLASS: Library ===")
 
-m1 = Member(501, "Kurisu Makise", "kurisu@futurelab.jp")
+library = Library()
+print("\n--- Adding Books ---")
+library.add_book(101, "Sword Art Online: Aincrad", "Reki Kawahara", 4)
+library.add_book(102, "Demon Slayer: Final Selection", "Koyoharu Gotouge", 2)
+library.add_book(103, "Your Name: Another Side", "Makoto Shinkai", 1)
 
-b1 = Book(21, "Steins;Gate: The Committee of 300", "Chiyomaru Shikura", 2)
-b2 = Book(22, "A Certain Magical Index", "Kazuma Kamachi", 1)
+print("\n--- Adding Members ---")
+library.add_member(301, "Kirito Kirigaya", "kirito@aincrad.jp")
+library.add_member(302, "Nezuko Kamado", "nezuko@slayer.jp")
 
-print("\n--- Member info ---")
-print(f"ID: {m1.ident}")
-print(f"Name: {m1.nickname}")
-print(f"Email: {m1.contact}")
-print(f"Borrowed books: {len(m1.items_on_loan)}")
+print("\n--- Display Available Books ---")
+library.display_available_books()
 
-print("\n--- Borrowing books ---")
-m1.borrow_book(b1)
-m1.borrow_book(b2)
+print("\n--- Borrowing Books ---")
+library.borrow_book(301, 101)  
+library.borrow_book(301, 102)  
+library.borrow_book(302, 101)  
 
-print(f"Books borrowed by {m1.nickname}:")
-for volume in m1.items_on_loan:
-    print(f"  - {volume.name}")
+print("\n--- Display Member Books ---")
+library.display_member_books(301)
+library.display_member_books(302)
 
-print("\n--- Trying to borrow more than 3 books ---")
-b3 = Book(23, "Re:Zero Arc 1", "Tappei Nagatsuki", 1)
-b4 = Book(24, "The Melancholy of Haruhi Suzumiya", "Nagaru Tanigawa", 1)
+print("\n--- Available Books After Borrowing ---")
+library.display_available_books()
 
-m1.borrow_book(b3)
-m1.borrow_book(b4)
+print("\n--- Returning Books ---")
+library.return_book(301, 101)
+library.return_book(302, 101)
 
-print(f"\nBorrowed books count: {len(m1.items_on_loan)}")
+print("\n--- Display After Returns ---")
+library.display_member_books(301)
+library.display_available_books()
 
-print("\n--- Returning a book ---")
-m1.return_book(b1)
-
-print("Books remaining after return:")
-for volume in m1.items_on_loan:
-    print(f"  - {volume.name}")
-
-print("\n--- Returning a book not borrowed ---")
-m1.return_book(b1)
+print("\n--- Error Handling Tests ---")
+library.borrow_book(999, 101)     
+library.borrow_book(301, 999)     
+library.return_book(999, 101)     
+library.display_member_books(999) 
