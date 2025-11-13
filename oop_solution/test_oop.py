@@ -1,45 +1,50 @@
-from library_oop import Book, Member
+from library_oop import Library
+library = Library()
+print("=== TESTING CLASS: Library ===")
 
 
-print("### MEMBER CLASS DEMONSTRATION ###\n")
+print("\n--- Adding Books ---")
+library.add_book(101, "Your Name", "Makoto Shinkai", 3)
+library.add_book(102, "Attack on Titan", "Hajime Isayama", 2)
+library.add_book(103, "Demon Slayer: Kimetsu no Yaiba", "Koyoharu Gotouge", 1)
 
 
-member_a = Member(202, "Brian Torres", "brian.torres@domain.com")
-bk1 = Book(11, "Automate the Boring Stuff", "Al Sweigart", 3)
-bk2 = Book(12, "Fluent Python", "Luciano Ramalho", 2)
-
-print("Member Details")
-print(" ID :", member_a.id)
-print(" Name :", member_a.name)
-print(" Email :", member_a.email)
-print(" Borrowed count =", len(member_a.borrowed_books))
+print("\n--- Adding Members ---")
+library.add_member(301, "Naruto Uzumaki", "naruto@konoha.jp")
+library.add_member(302, "Mikasa Ackerman", "mikasa@survey.jp")
 
 
-print("\nBorrowing available books ...")
-for b in (bk1, bk2):
-    member_a.borrow_book(b)
-    print(f"✓ Borrowed '{b.title}'")
-
-print("\nCurrently borrowed:")
-for book in member_a.borrowed_books:
-    print("  -", book.title)
+print("\n--- Display Available Books ---")
+library.display_available_books()
 
 
-print("\nTrying to borrow additional titles ...")
-bk3 = Book(13, "Effective Java", "Joshua Bloch", 1)
-bk4 = Book(14, "Clean Architecture", "Robert C. Martin", 1)
+print("\n--- Borrowing Books ---")
+library.borrow_book(301, 101)
+library.borrow_book(301, 102)
+library.borrow_book(302, 101)
 
-for item in (bk3, bk4):
-    member_a.borrow_book(item)
-    print("→ Borrowed:", item.title)
 
-print("\nTotal borrowed so far:", len(member_a.borrowed_books))
+print("\n--- Display Member Books ---")
+library.display_member_books(301)
+library.display_member_books(302)
 
-print("\nReturning one book ...")
-member_a.return_book(bk1)
-print("After returning, books left:")
-for remain in member_a.borrowed_books:
-    print(f"  * {remain.title}")
 
-print("\nAttempting to return a book already returned ...")
-member_a.return_book(bk1)
+print("\n--- Available Books After Borrowing ---")
+library.display_available_books()
+
+
+print("\n--- Returning Books ---")
+library.return_book(301, 101)
+library.return_book(302, 101)
+
+
+print("\n--- Display After Returns ---")
+library.display_member_books(301)
+library.display_available_books()
+
+
+print("\n--- Error Handling Tests ---")
+library.borrow_book(999, 101)
+library.borrow_book(301, 999)
+library.return_book(999, 101)
+library.display_member_books(999)
